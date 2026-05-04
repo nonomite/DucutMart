@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="InventoryDB" Class="InventoryDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=AMMA\SQLEXPRESS;Initial Catalog=InventoryDB;Integrated Security=True;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="DucutMart.Properties.Settings" SettingsPropertyName="InventoryDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ActivityLog" Member="ActivityLogs">
+    <Type Name="ActivityLog">
+      <Column Name="LogID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ActionTaken" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="AffectedTable" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="AffectedRecordID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OldValues" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="NewValues" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ActionTimestamp" Type="System.DateTimeOffset" DbType="DateTimeOffset NOT NULL" CanBeNull="false" />
+      <Column Name="IPAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="User_ActivityLog" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Categories" Member="Categories">
+    <Type Name="Category">
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CategoryName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ParentCategoryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTimeOffset" DbType="DateTimeOffset NOT NULL" CanBeNull="false" />
+      <Association Name="Category_Category" Member="Categories" ThisKey="CategoryID" OtherKey="ParentCategoryID" Type="Category" />
+      <Association Name="Category_Product" Member="Products" ThisKey="CategoryID" OtherKey="CategoryID" Type="Product" />
+      <Association Name="Category_Category" Member="Category1" ThisKey="ParentCategoryID" OtherKey="CategoryID" Type="Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductCode" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitOfMeasure" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTimeOffset" DbType="DateTimeOffset NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTimeOffset" DbType="DateTimeOffset" CanBeNull="true" />
+      <Association Name="Product_SalesDetail" Member="SalesDetails" ThisKey="ProductID" OtherKey="ProductID" Type="SalesDetail" />
+      <Association Name="Product_StockBatch" Member="StockBatches" ThisKey="ProductID" OtherKey="ProductID" Type="StockBatch" />
+      <Association Name="Category_Product" Member="Category" ThisKey="CategoryID" OtherKey="CategoryID" Type="Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Roles" Member="Roles">
+    <Type Name="Role">
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RoleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTimeOffset" DbType="DateTimeOffset NOT NULL" CanBeNull="false" />
+      <Association Name="Role_User" Member="Users" ThisKey="RoleID" OtherKey="RoleID" Type="User" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sales" Member="Sales">
+    <Type Name="Sale">
+      <Column Name="SaleID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SaleNumber" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="SaleDate" Type="System.DateTimeOffset" DbType="DateTimeOffset NOT NULL" CanBeNull="false" />
+      <Column Name="TotalAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedByUserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsVoided" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="VoidedByUserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VoidedAt" Type="System.DateTimeOffset" DbType="DateTimeOffset" CanBeNull="true" />
+      <Column Name="VoidReason" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="Sale_SalesDetail" Member="SalesDetails" ThisKey="SaleID" OtherKey="SaleID" Type="SalesDetail" />
+      <Association Name="User_Sale" Member="User" ThisKey="CreatedByUserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+      <Association Name="User_Sale1" Member="User1" ThisKey="VoidedByUserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SalesDetails" Member="SalesDetails">
+    <Type Name="SalesDetail">
+      <Column Name="SalesDetailID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SaleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BatchID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PriceAtSale" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="LineTotal" Type="System.Decimal" DbType="Decimal(29,2)" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Product_SalesDetail" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+      <Association Name="Sale_SalesDetail" Member="Sale" ThisKey="SaleID" OtherKey="SaleID" Type="Sale" IsForeignKey="true" />
+      <Association Name="StockBatch_SalesDetail" Member="StockBatch" ThisKey="BatchID" OtherKey="BatchID" Type="StockBatch" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StockBatches" Member="StockBatches">
+    <Type Name="StockBatch">
+      <Column Name="BatchID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BatchNumber" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitPrice" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="ExpirationDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="ReceivedAt" Type="System.DateTimeOffset" DbType="DateTimeOffset NOT NULL" CanBeNull="false" />
+      <Column Name="AddedByUserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="StockBatch_SalesDetail" Member="SalesDetails" ThisKey="BatchID" OtherKey="BatchID" Type="SalesDetail" />
+      <Association Name="Product_StockBatch" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+      <Association Name="User_StockBatch" Member="User" ThisKey="AddedByUserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordHash" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="RoleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastLoginAt" Type="System.DateTimeOffset" DbType="DateTimeOffset" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTimeOffset" DbType="DateTimeOffset NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTimeOffset" DbType="DateTimeOffset" CanBeNull="true" />
+      <Association Name="User_ActivityLog" Member="ActivityLogs" ThisKey="UserID" OtherKey="UserID" Type="ActivityLog" />
+      <Association Name="User_Sale" Member="Sales" ThisKey="UserID" OtherKey="CreatedByUserID" Type="Sale" />
+      <Association Name="User_Sale1" Member="Sales1" ThisKey="UserID" OtherKey="VoidedByUserID" Type="Sale" />
+      <Association Name="User_StockBatch" Member="StockBatches" ThisKey="UserID" OtherKey="AddedByUserID" Type="StockBatch" />
+      <Association Name="Role_User" Member="Role" ThisKey="RoleID" OtherKey="RoleID" Type="Role" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

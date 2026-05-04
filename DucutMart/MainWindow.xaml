@@ -1,0 +1,22 @@
+﻿<Window x:Class="DucutMart.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DucutMart"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid x:Name="parentGrid" Background="{DynamicResource RightBgColor}">
+        <Grid Background="{DynamicResource LeftBgColor}" Width="500" HorizontalAlignment="Left">
+            <Image Source="C:\Users\admin\Downloads\01 ACADS\01 BSIT\02 Second Sem\Event Driven\resources\Ducutmart_Logo.png" VerticalAlignment="Center" HorizontalAlignment="Center" Height="500"/>
+            <TextBlock Text="Welcome to" Style="{DynamicResource TitleFont}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,85"/>
+        </Grid>
+        <TextBox x:Name="username" Style="{DynamicResource Textboxes}" FontFamily="Poppins" HorizontalAlignment="Left" Margin="562,198,0,0"  TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <Label Content="Username" Style="{DynamicResource Labels}" HorizontalAlignment="Left" Margin="556,178,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="password" Style="{DynamicResource Textboxes}" FontFamily="Poppins" HorizontalAlignment="Left" Margin="562,266,0,0"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" RenderTransformOrigin="0.57,1.185"/>
+        <Label Content="Password" Style="{DynamicResource Labels}" HorizontalAlignment="Left" Margin="556,244,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="loginBtn" Content="Login" HorizontalAlignment="Left" Margin="562,313,0,0" VerticalAlignment="Top" Click="loginBtn_Click"/>
+        <TextBlock Text="Login" Style="{DynamicResource TitleFont}" Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="556,85,0,0"/>
+
+    </Grid>
+</Window>

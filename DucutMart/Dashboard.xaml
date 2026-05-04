@@ -1,0 +1,95 @@
+﻿<Window x:Class="DucutMart.Dashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DucutMart"
+        mc:Ignorable="d"
+        Title="Dashboard" Height="900" Width="1350" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid x:Name="gridParent" Style="{DynamicResource DashboardStyle}">
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0">
+            <StackPanel x:Name="headerStack">
+                <Grid Style="{DynamicResource headerGrid}" Width="1300" Height="35">
+                    <TextBlock x:Name="welcome" Text="welcome" Style="{DynamicResource header}" Margin="50,0,0,0"/>
+                    <TextBlock x:Name="logout" Text="Logout" Style="{DynamicResource logout}" Margin="0,0,50,0" MouseDown="logout_MouseDown" HorizontalAlignment="Right"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                </Grid>
+            </StackPanel>
+            <TabControl Margin="0,10,0,0" Height="795" Width="1300" Style="{DynamicResource tabDesign}">
+                <TabItem Header="Dashboard" Style="{DynamicResource tabItemDesign}">
+                    <StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="SUMMARY" Style="{DynamicResource pheader}" Margin="10"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Grid Style="{DynamicResource DashboardCardDesign}">
+                                <StackPanel>
+                                    <TextBlock Text="Total Sales" Style="{DynamicResource BodyFont}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                    <TextBlock Text="Numbers" Style="{DynamicResource TitleFont}" Padding="10" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Border Style="{DynamicResource borderDesign}"/>
+                            </Grid>
+                            <Grid Style="{DynamicResource DashboardCardDesign}">
+                                <StackPanel>
+                                    <TextBlock Text="Low Stock Product" Style="{DynamicResource BodyFont}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                    <TextBlock Text="Numbers" Style="{DynamicResource TitleFont}" Padding="10" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Border Style="{DynamicResource borderDesign}"/>
+                            </Grid>
+                            <Grid Style="{DynamicResource DashboardCardDesign}">
+                                <StackPanel>
+                                    <TextBlock Text="Total No. of Products" Style="{DynamicResource BodyFont}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                    <TextBlock Text="Numbers" Style="{DynamicResource TitleFont}" Padding="10" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Border Style="{DynamicResource borderDesign}"/>
+                            </Grid>
+                            <Grid Style="{DynamicResource DashboardCardDesign}">
+                                <StackPanel>
+                                    <TextBlock Text="Near Expiring Products" Style="{DynamicResource BodyFont}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                    <TextBlock Text="Numbers" Style="{DynamicResource TitleFont}" Padding="10" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Border Style="{DynamicResource borderDesign}"/>
+                            </Grid>
+
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="ALERTS AND NOTIFICATIONS" Style="{DynamicResource pheader}" Margin="10"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Grid Style="{DynamicResource DashboardCardDesign}" Width="1270">
+                                <Border Style="{DynamicResource borderDesign}"/>
+
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="RECENT TRANSACTIONS" Style="{DynamicResource pheader}" Margin="10"/>
+                            
+                        </StackPanel>
+                        <StackPanel>
+                            <DataGrid x:Name="recentTransactions" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" HeadersVisibility="Column" Margin="10">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Transaction ID" Width="*"/>
+                                    <DataGridTextColumn Header="Product Name" Width="*"/>
+                                    <DataGridTextColumn Header="Quantity" Width="*"/>
+                                    <DataGridTextColumn Header="Total Price" Width="*"/>
+                                    <DataGridTextColumn Header="Date and Time" Width="*"/>
+                                </DataGrid.Columns>
+                                <Border Style="{DynamicResource borderDesign}"/>
+
+                            </DataGrid>
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Inventory" Style="{DynamicResource tabItemDesign}">
+                </TabItem>
+                <TabItem Header="Reports" Style="{DynamicResource tabItemDesign}">
+                </TabItem>
+                <TabItem Header="Users" Style="{DynamicResource tabItemDesign}">
+                </TabItem>
+            </TabControl>
+
+
+        </StackPanel>
+    </Grid>
+</Window>
